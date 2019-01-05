@@ -1,13 +1,13 @@
 {
-    "name": "zafex/viloveul-middleware",
+    "name": "viloveul/middleware",
     "description": "Middleware component of Viloveul.",
-    "type": "framework",
+    "type": "component",
     "license": "MIT",
     "authors": [{
         "name": "Fajrul Akbar Zuhdi",
         "email": "fajrulaz@gmail.com"
     }],
-    "keywords": ["framework", "micro", "zafex", "viloveul", "fajrulaz", "middleware"],
+    "keywords": ["component", "micro", "zafex", "viloveul", "fajrulaz", "middleware"],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
