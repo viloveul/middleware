@@ -23,7 +23,7 @@ class Delegator implements IDelegator
         if (is_callable($handler)) {
             $this->handler = $handler;
         } else {
-            throw new RuntimeException("Cannot process Middleware, Middleware must instanceof Closure or MiddlewareInterface");
+            throw new RuntimeException("Cannot process argument, argument must be callable");
         }
     }
 
