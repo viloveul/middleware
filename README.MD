@@ -1,9 +1,14 @@
+
 # Installation
+
 make sure your php version > 7.0
+
 ```bash
 composer require viloveul/middleware
 ```
+
 ## HOW
+
 ```php
 require __DIR__ . '/vendor/autoload.php';
 
