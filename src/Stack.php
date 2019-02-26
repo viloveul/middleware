@@ -55,6 +55,6 @@ class Stack implements IStack
             }
         }
 
-        return call_user_func($this->handler);
+        return call_user_func($this->handler, $request);
     }
 }
