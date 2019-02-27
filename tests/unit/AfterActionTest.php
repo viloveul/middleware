@@ -29,13 +29,12 @@ class AfterActionTest extends \Codeception\Test\Unit
         $controller = function(ServerRequestInterface $request) {
             return ResponseFactory::createResponse(200);
         };
-        $middlewares = [
-            function (ServerRequestInterface $request, RequestHandlerInterface $next) : ResponseInterface {
-                $response = $next($request);
-                return $response->withStatus(404);
-            }
-        ];
-        $stack = new Viloveul\Middleware\Stack($controller, $middlewares);
+        $collection = new Viloveul\Middleware\Collection();
+        $collection->add(function (ServerRequestInterface $request, RequestHandlerInterface $next) : ResponseInterface {
+            $response = $next($request);
+            return $response->withStatus(404);
+        });
+        $stack = new Viloveul\Middleware\Stack($controller, $collection);
         $response = $stack->handle(ServerRequestFactory::fromGlobals());
         $this->tester->assertInstanceOf(ResponseInterface::class, $response);
         $this->tester->assertEquals(404, $response->getStatusCode());
@@ -46,10 +45,9 @@ class AfterActionTest extends \Codeception\Test\Unit
         $controller = function(ServerRequestInterface $request) {
             return ResponseFactory::createResponse(200);
         };
-        $middlewares = [
-            new ViloveulMiddlewareSample\AfterAction()
-        ];
-        $stack = new Viloveul\Middleware\Stack($controller, $middlewares);
+        $collection = new Viloveul\Middleware\Collection();
+        $collection->add(new ViloveulMiddlewareSample\AfterAction());
+        $stack = new Viloveul\Middleware\Stack($controller, $collection);
         $response = $stack->handle(ServerRequestFactory::fromGlobals());
         $this->tester->assertInstanceOf(ResponseInterface::class, $response);
         $this->tester->assertEquals(404, $response->getStatusCode());

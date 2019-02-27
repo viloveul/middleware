@@ -12,20 +12,21 @@ composer require viloveul/middleware
 ```php
 require __DIR__ . '/vendor/autoload.php';
 
+$collection = new Viloveul\Middleware\Collection();
+
 $controller = function () {
 	// return Psr\Http\Message\ResponseInterface
 };
 
-$middlewares = [
-	'new object from Psr\Http\Server\MiddlewareInterface',
-	'new object of Closure',
-	function (Psr\Http\Message\ServerRequestInterface $request, Psr\Http\Server\RequestHandlerInterface $next) : Psr\Http\Message\ResponseInterface {
+$collection->add('new object from Psr\Http\Server\MiddlewareInterface');
+$collection->add('new object of Closure');
+$collection->add(function (Psr\Http\Message\ServerRequestInterface $request, Psr\Http\Server\RequestHandlerInterface $next) : Psr\Http\Message\ResponseInterface {
 		// do something
 		return $next->handle($request);
 	}
-];
+);
 
-$stack = new Viloveul\Middleware\Stack($controller, $middlewares);
+$stack = new Viloveul\Middleware\Stack($controller, $collection);
 
 $response = $stack->handle("object from Psr\Http\Message\ServerRequestInterface");
 

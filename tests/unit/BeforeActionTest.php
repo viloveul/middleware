@@ -33,15 +33,14 @@ class BeforeActionTest extends \Codeception\Test\Unit
                 return ResponseFactory::createResponse(200);
             }
         };
-        $middlewares = [
-            function (ServerRequestInterface $request, RequestHandlerInterface $next) : ResponseInterface {
-                // overwrite request
-                $request = new ServerRequest([], [], '/foo');
-                // so action will retrieve new request
-                return $next($request);
-            }
-        ];
-        $stack = new Viloveul\Middleware\Stack($controller, $middlewares);
+        $collection = new Viloveul\Middleware\Collection();
+        $collection->add(function (ServerRequestInterface $request, RequestHandlerInterface $next) : ResponseInterface {
+            // overwrite request
+            $request = new ServerRequest([], [], '/foo');
+            // so action will retrieve new request
+            return $next($request);
+        });
+        $stack = new Viloveul\Middleware\Stack($controller, $collection);
         $response = $stack->handle(ServerRequestFactory::fromGlobals());
         $this->tester->assertInstanceOf(ResponseInterface::class, $response);
         $this->tester->assertEquals(500, $response->getStatusCode());
@@ -56,10 +55,9 @@ class BeforeActionTest extends \Codeception\Test\Unit
                 return ResponseFactory::createResponse(200);
             }
         };
-        $middlewares = [
-            new ViloveulMiddlewareSample\BeforeAction()
-        ];
-        $stack = new Viloveul\Middleware\Stack($controller, $middlewares);
+        $collection = new Viloveul\Middleware\Collection();
+        $collection->add(new ViloveulMiddlewareSample\BeforeAction());
+        $stack = new Viloveul\Middleware\Stack($controller, $collection);
         $response = $stack->handle(ServerRequestFactory::fromGlobals());
         $this->tester->assertInstanceOf(ResponseInterface::class, $response);
         $this->tester->assertEquals(500, $response->getStatusCode());

@@ -6,6 +6,7 @@ use Closure;
 use Psr\Http\Message\ResponseInterface as IResponse;
 use Psr\Http\Message\ServerRequestInterface as IServerRequest;
 use Psr\Http\Server\MiddlewareInterface as IMiddleware;
+use Viloveul\Middleware\Contracts\Collection as ICollection;
 use Viloveul\Middleware\Contracts\Stack as IStack;
 use Viloveul\Middleware\Delegator;
 
@@ -22,13 +23,13 @@ class Stack implements IStack
     protected $handler;
 
     /**
-     * @param Closure $handler
-     * @param array   $collections
+     * @param Closure     $handler
+     * @param ICollection $collections
      */
-    public function __construct(Closure $handler, array $collections = [])
+    public function __construct(Closure $handler, ICollection $collections)
     {
         $this->handler = $handler;
-        $this->collections = $collections;
+        $this->collections = $collections->all();
     }
 
     /**
