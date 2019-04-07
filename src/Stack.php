@@ -2,13 +2,12 @@
 
 namespace Viloveul\Middleware;
 
-use Closure;
+use Viloveul\Middleware\Delegator;
+use Viloveul\Middleware\Contracts\Stack as IStack;
 use Psr\Http\Message\ResponseInterface as IResponse;
-use Psr\Http\Message\ServerRequestInterface as IServerRequest;
 use Psr\Http\Server\MiddlewareInterface as IMiddleware;
 use Viloveul\Middleware\Contracts\Collection as ICollection;
-use Viloveul\Middleware\Contracts\Stack as IStack;
-use Viloveul\Middleware\Delegator;
+use Psr\Http\Message\ServerRequestInterface as IServerRequest;
 
 class Stack implements IStack
 {
@@ -23,10 +22,10 @@ class Stack implements IStack
     protected $handler;
 
     /**
-     * @param Closure     $handler
+     * @param callable    $handler
      * @param ICollection $collections
      */
-    public function __construct(Closure $handler, ICollection $collections)
+    public function __construct(callable $handler, ICollection $collections)
     {
         $this->handler = $handler;
         $this->collections = $collections->all();
