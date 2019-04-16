@@ -2,7 +2,6 @@
 
 namespace Viloveul\Middleware;
 
-use Viloveul\Middleware\Delegator;
 use Viloveul\Middleware\Contracts\Stack as IStack;
 use Psr\Http\Message\ResponseInterface as IResponse;
 use Psr\Http\Server\MiddlewareInterface as IMiddleware;
@@ -47,14 +46,19 @@ class Stack implements IStack
     {
         if (!empty($this->collections)) {
             if ($middleware = array_shift($this->collections)) {
-                if ($middleware instanceof IMiddleware) {
-                    return $middleware->process($request, $this);
-                } else {
-                    return Delegator::make($middleware)->process($request, $this);
-                }
+                return $this->processMiddleware($request, $middleware);
             }
         }
-
         return call_user_func($this->handler, $request);
+    }
+
+    /**
+     * @param  IServerRequest $request
+     * @param  IMiddleware    $middleware
+     * @return mixed
+     */
+    protected function processMiddleware(IServerRequest $request, IMiddleware $middleware): IResponse
+    {
+        return $middleware->process($request, $this);
     }
 }
