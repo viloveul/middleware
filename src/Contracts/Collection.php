@@ -2,7 +2,9 @@
 
 namespace Viloveul\Middleware\Contracts;
 
-interface Collection
+use Countable;
+
+interface Collection extends Countable
 {
     /**
      * @param $handler
@@ -10,4 +12,9 @@ interface Collection
     public function add($handler): void;
 
     public function all(): array;
+
+    /**
+     * @param $callback
+     */
+    public function map(callable $callback): void;
 }

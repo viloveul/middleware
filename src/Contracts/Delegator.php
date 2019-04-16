@@ -2,17 +2,18 @@
 
 namespace Viloveul\Middleware\Contracts;
 
+use Closure;
 use Psr\Http\Server\MiddlewareInterface;
 
 interface Delegator extends MiddlewareInterface
 {
     /**
-     * @param $handler
+     * @param Closure $handler
      */
-    public function delegate($handler): void;
+    public function delegate(Closure $handler): void;
 
     /**
-     * @param $callback
+     * @param Closure $callback
      */
-    public static function make($callback): self;
+    public static function make(Closure $callback): self;
 }

@@ -2,11 +2,11 @@
 
 namespace Viloveul\Middleware;
 
+use Closure;
 use Psr\Http\Message\ResponseInterface as IResponse;
+use Viloveul\Middleware\Contracts\Delegator as IDelegator;
 use Psr\Http\Message\ServerRequestInterface as IServerRequest;
 use Psr\Http\Server\RequestHandlerInterface as IRequestHandler;
-use RuntimeException;
-use Viloveul\Middleware\Contracts\Delegator as IDelegator;
 
 class Delegator implements IDelegator
 {
@@ -16,24 +16,20 @@ class Delegator implements IDelegator
     protected $handler;
 
     /**
-     * @param $handler
+     * @param Closure $handler
      */
-    public function delegate($handler): void
+    public function delegate(Closure $handler): void
     {
-        if (is_callable($handler)) {
-            $this->handler = $handler;
-        } else {
-            throw new RuntimeException("Cannot process argument, argument must be callable");
-        }
+        $this->handler = $handler;
     }
 
     /**
-     * @param  $callback
+     * @param  Closure $callback
      * @return mixed
      */
-    public static function make($callback): IDelegator
+    public static function make(Closure $callback): IDelegator
     {
-        $delegator = new static;
+        $delegator = new static();
         $delegator->delegate($callback);
         return $delegator;
     }

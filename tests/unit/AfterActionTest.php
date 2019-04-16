@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ResponseFactory;
-use ViloveulMiddlewareSample;
 
 class AfterActionTest extends \Codeception\Test\Unit
 {
