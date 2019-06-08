@@ -1,3 +1,14 @@
+<p align="center">
+<a href="https://travis-ci.com/viloveul/middleware">
+<img src="https://travis-ci.com/viloveul/middleware.svg" alt="Build Status">
+</a>
+<a href="https://packagist.org/packages/viloveul/middleware">
+<img src="https://poser.pugx.org/viloveul/middleware/d/total.svg" alt="Total Downloads">
+</a>
+<a href="https://packagist.org/packages/viloveul/middleware">
+<img src="https://poser.pugx.org/viloveul/middleware/v/stable.svg" alt="Latest Stable Version">
+</a>
+</p>
 
 # Installation
 
