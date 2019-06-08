@@ -1,12 +1,11 @@
 <?php 
 
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\ResponseFactory;
-use ViloveulMiddlewareSample;
+use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\ServerRequestFactory;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class BeforeActionTest extends \Codeception\Test\Unit
 {
